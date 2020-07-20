@@ -9,17 +9,18 @@ class CreateTeacherInfosTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
+     *
      */
     public function up()
     {
         Schema::create('teacher_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
-            $table->string('school');
             $table->string('picture');
+            $table->string('phonenumber');
+            // $table->dateTime('email_varified_at');
             $table->timestamps();
         });
     }

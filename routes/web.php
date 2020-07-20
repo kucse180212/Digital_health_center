@@ -10,10 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use  Auth\VerificationController;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 use App\Http\Controllers\postController;
+use App\Mail\Welcomemail;
 use Illuminate\Support\Facades\Route;
 use App\Post;
+use Illuminate\Support\Facades\Mail;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 //Route::get('/post/{id}','postController@index');
 Route::resource('posts', 'postController');
@@ -84,9 +89,95 @@ Route::get('/teacher_page','postController@teacher');
 Route::post('/Digital_health_center1','postController@verify');
 Route::post('/Studentteacher','postController@emon');
 Route::Post('/LOGGEDIN','postController@data');
+
+
+Route::Post('/DoctorSignedUp','postController@add_doctor');
+
 Route::Post('/insert','postController@insertstudent');
 
 Route::post('/student','postController@studentshow');
+
+
+Route::get('/createpost1/{post_id}',[
+          'uses'=>'postController@CreatePost1',
+          'as'=>'create'
+]);
+
+
+Route::get('/teacherpost/{post_id}',[
+    'uses'=>'postController@teacherpost',
+    'as'=>'post1'
+]);
+
+Route::get('/studentpage/{post_id}',[
+    'uses'=>'postController@check',
+    'as'=>'returnpage'
+]);
+Route::get('/deleteuserpost/{post_id}',[
+
+    'uses'=>'postController@deletepost',
+    'as'=>'deletepost'
+
+]);
+
+Route::get('/updatestudentinfo/{post_id}',[
+
+    'uses'=>'postController@updatestudent',
+    'as'=>'updatestudent'
+
+]);
+
+Route::get('/postpage/{post_id}',[
+
+    'uses'=>'postController@editpost',
+    'as'=>'editpost'
+
+]);
+Route::get('/updatepage/{post_id}',[
+
+    'uses'=>'postController@updatepost',
+    'as'=>'updatepost'
+
+]);
+
+
+
+
+
+Route::get('/deletestudent/{post_id}',[
+
+    'uses'=>'postController@deletestudent',
+    'as'=>'deletestudent'
+
+]);
+
+Route::get('/searchforstudent/{post_id}',[
+
+    'uses'=>'postController@searchstudent',
+    'as'=>'searchstudent1'
+
+]);
+Route::get('/searchforcomment/{post_id}/{p2}',[
+
+    'uses'=>'postController@createcoment',
+    'as'=>'createcomment'
+
+]);
+
+Route::get('/googlemap/{post_id}',[
+
+    'uses'=>'postController@map',
+    'as'=>'map'
+
+]);
+
+
+
+
+Route::post('/dash_board','postController@dashboard');
+
+
+
 Route::get('/login',function(){
 
     return view('learning/login_page');
@@ -118,4 +209,13 @@ Route::get('/loader',function ()
 {
     return view('learning/loader');
 });
+Route::get('/post',function(){
 
+    return view('learning/post');
+});
+
+Route::get('users', function () {
+    return App\User::paginate(4);
+});
+
+Route::get('email','postController@mailsend');

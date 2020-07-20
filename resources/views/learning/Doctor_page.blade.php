@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    @extends('layouts.app')
 
 <head>
 
@@ -21,16 +22,45 @@
   <!-- Custom styles for this template -->
   <link href={{asset("resume/css/resume.min.css")}} rel="stylesheet">
 
+
+  <style>
+
+
+*[role="form"] {
+max-width: 530px;
+padding: 15px;
+margin: 0 auto;
+border-radius: 0.3em;
+background-color: #f2f2f2;
+}
+
+*[role="form"] h2 {
+font-family: 'Open Sans' , sans-serif;
+font-size: 40px;
+font-weight: 600;
+color: #000000;
+margin-top: 5%;
+text-align: center;
+text-transform: uppercase;
+letter-spacing: 4px;
+}
+.mahbub
+{
+    margin:right;
+}
+
+
+</style>
+
 </head>
 
 <body id="page-top">
-    
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">Clarence Taylor</span>
       <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src={{url{{https://upload.wikimedia.org/wikipedia/en/d/d4/Mickey_Mouse.png}})}} alt="">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{asset('uploads/highlights/'.$user->picture)}}" alt="">
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,78 +72,117 @@
           <a class="nav-link js-scroll-trigger" href="#about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#experience">Health_History</a>
+          <a class="nav-link js-scroll-trigger" href="#experience">Insert_Doctor</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#education">Current_Status</a>
+          <a class="nav-link js-scroll-trigger" href="#skills">Update_student</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#skills">Communication</a>
+          <a class="nav-link js-scroll-trigger" href="#awards">Communication</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#awards">Reply</a>
+         <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#hospital">Find_Hospital</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <div class="container-fluid p-0">
-
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+      <a href="/Digital_health_center"><button>Log Out</button></a>
+            </li>
+        </ul>
+      </nav>
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
       <div class="w-100">
-        <h1 class="mb-0">{{$user->first_name}}
-        <span class="text-primary">{{$user->last_name}}</span>
+        <h1 class="mb-0">{{$user->name}}
         </h1>
         <div class="subheading mb-5">
-            Contact Number:{{$user->phone_number}}
+            Contact Number:{{$user->phonenumber}}
             <br>
             Email:
-          <a href="mailto:{{$user->last_name}}">{{$user->email}}</a>
+          <a href="mailto:{{$user->email}}">{{$user->email}}</a>
           <br>
-         <h4> Height: {{$user->height}} foot</h4>
-         <h4>Weight: {{$user->weight}} kg </h4>
+          Specialist: {{$user->specialist}}
 
         </div>
 
       </div>
-    </section>
-
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
-      <div class="w-100">
-        <h2 class="mb-5">Health_History</h2>
-
-        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-          <div class="resume-content">
-            <h4> {{$user->health_history}} <h4>
-          </div>
-        </div>
-      </div>
-
     </section>
 
     <hr class="m-0">
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
       <div class="w-100">
-        <h2 class="mb-5">Current_Status</h2>
 
-       <h4>{{$user->current_health}}
+            <h2 class="mb-5">Insert a doctor</h2>
 
-      </div>
+
+            <form method='POST' action="/DoctorSignedUp" >
+                @csrf
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Name </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="Name" class="form-control" name= "name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email* </label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" placeholder="Email" class="form-control" name= "email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Phone NUmber* </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="PhoneNumber" class="form-control" name= "phone_number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="password"id="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label"> Specialist </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="School" class="form-control" name= "specialist">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="text" class="col-sm-3 control-label">Picture </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="picture" class="form-control" name= "picture">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form> <!-- /form -->
+          </div>
+
     </section>
 
     <hr class="m-0">
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
       <div class="w-100">
-        <h2 class="mb-5">Communication</h2>
-       <form method="Post" action="/">
+        <h2 class="mb-5">Search_student</h2>
+       <form action="{{route ( 'searchstudent1' , [$user->email] )}}" method="GET">
+        @csrf
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Problem Statement</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            <input type="submit" value="Login" class="btn float-right login_btn">
+            <input type="text" name="username" class="form-control" placeholder="Email_id">
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
         </div>
 
        </form>
@@ -128,17 +197,38 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="awards">
       <div class="w-100">
-        <h2 class="mb-5">REPLY FROM DOCTOR</h2>
-
-        {{-- //DOCTOR REPLY
-        {{$user->REPLY}}
+        <h2 class="mb-5">Communication</h2>
+          <a href="{{route ( 'post1' , [$user->email])}}">GO_TO_THE_POST_PAGE</a>
 
 
-        /// --}}
+
+
+          <section class="row new--post">
+            <div class=container>
+                <header><h3>What is in your mind??</h3></header>
+
+                <form action= "{{route ( 'create' , [$user->email] )}}" method="GET">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                    <textarea class="form-control" name="newpost" rows="5" placeholder="Feel Free to share"></textarea>
+                    <button type="submit" class="btn btn-dark">Create Post</button>
+                </div>
+              </form>
+            </div>
+         </section>
       </div>
     </section>
 
   </div>
+<hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="hospital">
+      <div class="w-100">
+        <h2 class="abc">Find Hospital</h2>
+          <a href="{{route ( 'map' , [$user->email])}}">Click_Here_to_find_Hospital</a>
+
+      </div>
+     </section>
 
   <!-- Bootstrap core JavaScript -->
   <script src={{asset("resume/vendor/jquery/jquery.min.js")}}></script>

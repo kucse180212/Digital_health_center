@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    @extends('layouts.app')
 
 <head>
 
@@ -8,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Resume - Start Bootstrap Theme</title>
+  <title>Teacher's main page</title>
 
   <!-- Bootstrap core CSS -->
   <link href={{asset("resume/vendor/bootstrap/css/bootstrap.min.css")}} rel="stylesheet">
@@ -23,45 +24,50 @@
 
 
   <style>
-
-
-*[role="form"] {
-max-width: 530px;
-padding: 15px;
-margin: 0 auto;
-border-radius: 0.3em;
-background-color: #f2f2f2;
-}
-
-*[role="form"] h2 {
-font-family: 'Open Sans' , sans-serif;
-font-size: 40px;
-font-weight: 600;
-color: #000000;
-margin-top: 5%;
-text-align: center;
-text-transform: uppercase;
-letter-spacing: 4px;
-}
-.mahbub
+.abc
 {
-    margin:right;
+    text-align: justify;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: 800;
+    color:rgba(148, 248, 5);
 }
+
+.page-top
+{
+    background-image:url('https://images.unsplash.com/photo-1488342994276-7c3bc0742042?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+    background-color: rgba( 9, 255, 24);
+    image:cover;
+    color:rgba(148, 248, 5);
+}
+.abc
+{
+    text-align: justify;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: 800;
+    color:rgba(148, 248, 5);
+}
+
+.right_top
+{
+    background-color: rgb( 232, 127, 15);
+}
+
 
 
 </style>
 
 </head>
 
-<body id="page-top">
+<body class="page-top">
+    <div class="right_top">
 
-    <a href="/Digital_health_center"><button class="mahbub">Log Out</button></a>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-warning fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none">Clarence Taylor</span>
       <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src={{asset("resume/img/profile.jpg")}} alt="">
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{asset('uploads/highlights/'.$user->picture)}}" alt="">
       </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +79,7 @@ letter-spacing: 4px;
           <a class="nav-link js-scroll-trigger" href="#about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#experience">Search_student</a>
+          <a class="nav-link js-scroll-trigger" href="#experience">Insert_Doctor</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#education">Insert_student</a>
@@ -82,20 +88,30 @@ letter-spacing: 4px;
           <a class="nav-link js-scroll-trigger" href="#skills">Update_student</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#awards">Delete_student</a>
+          <a class="nav-link js-scroll-trigger" href="#awards">Communication</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#hospital">Find_Hospital</a>
         </li>
       </ul>
     </div>
   </nav>
+    </div>
 
   <div class="container-fluid p-0">
-
+    <nav class="navbar navbar-expand-sm bg-mute navbar-dark">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+      <a href="/Digital_health_center">Log Out</a>
+            </li>
+        </ul>
+      </nav>
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
       <div class="w-100">
-        <h1 class="mb-0">{{$user->name}}
+        <h1 class="abc">{{$user->name}}
         </h1>
         <div class="subheading mb-5">
-            Contact Number:{{$user->phone_number}}
+            Contact Number:{{$user->phonenumber}}
             <br>
             Email:
           <a href="mailto:{{$user->email}}">{{$user->email}}</a>
@@ -107,24 +123,69 @@ letter-spacing: 4px;
 
     <hr class="m-0">
 
-    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
       <div class="w-100">
-        <h2 class="mb-5">Search_student</h2>
 
-        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-          <div class="resume-content">
-
-            <form method='post' action="/Studentteacher"  >
-
-                    <input type="text" name="username" class="form-control" placeholder="Email_id">
-                    <button type="submit" class="btn btn-primary btn-block">Search</button>
-                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
-            </form>
+            <h2 class="abc">Insert a doctor</h2>
 
 
+            <form method='POST' action="/DoctorSignedUp" enctype="multipart/form-data" >
+                @csrf
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Name </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="Name" class="form-control" name= "name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email* </label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" placeholder="Email" class="form-control" name= "email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Phone NUmber* </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="PhoneNumber" class="form-control" name= "phone_number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" name="password"id="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Confirm Password*</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label"> Specialist </label>
+                    <div class="col-sm-9">
+                        <input type="text" id="email" placeholder="School" class="form-control" name= "specialist">
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <label class="custom-file-label">choose file</label>
+                        <input class="custom-file-input" type="file" id="picture" placeholder="picture"  name= "picture">
+
+                    </div>
+
+                </div>
+                </div>
+
+
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-outline-primary btn-block">Insert</button>
+                </div>
+            </form> <!-- /form -->
           </div>
-        </div>
-      </div>
 
     </section>
 
@@ -132,11 +193,11 @@ letter-spacing: 4px;
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
       <div class="w-100">
-        <h2 class="mb-5">Insert_student</h2>
+        <h2 class="abc">Insert_student</h2>
 
 
 
-        <form method='POST' action="/insert" >
+        <form method='POST' action="/insert" enctype="multipart/form-data" >
             @csrf
 
             <div class="form-group">
@@ -185,22 +246,30 @@ letter-spacing: 4px;
             <div class="form-group">
                 <label for="password" class="col-sm-3 control-label">health_history</label>
                 <div class="col-sm-9">
-                    <input type="string" name="he_his" placeholder="health_history" class="form-control">
+
+                    <textarea class="form-control" name="he_his" rows="5" placeholder="health_history"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label for="string" class="col-sm-3 control-label">current_health</label>
                 <div class="col-sm-9">
-                    <input type="string" name="current" placeholder="current_health" class="form-control">
+
+                    <textarea class="form-control" name="current" rows="5" placeholder="Currenthealth"></textarea>
                 </div>
             </div>
-            <label for="password" class="col-sm-3 control-label">picture</label>
             <div class="col-sm-9">
-                <input type="string" name="pic" placeholder="picture" class="form-control">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <label class="custom-file-label">choose file</label>
+                        <input class="custom-file-input" type="file" id="picture" placeholder="picture"  name= "picture">
+
+                    </div>
+
+                </div>
             </div>
             <div class="col-sm-9 col-sm-offset-3">
                     <span class="help-block">*Required fields</span>
-                    <button type="submit" class="btn btn-primary btn-block">Insert</button>
+                    <button type="submit" class="btn btn-outline-primary btn-block">Insert</button>
                 </div>
         </div>
 
@@ -217,12 +286,16 @@ letter-spacing: 4px;
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
       <div class="w-100">
-        <h2 class="mb-5">Update_student</h2>
-       <form method="Post" action="/">
+        <h2 class="abc">Update_student</h2>
+       <form action="{{route ( 'searchstudent1' , [$user->email] )}}" method="GET">
+        @csrf
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Problem Statement</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            <input type="submit" value="Login" class="btn float-right login_btn">
+            <div class="col-sm-9 col-sm-offset-3">
+            <input type="text" name="username" class="form-control" placeholder="Email_id">
+            </div>
+            <div class="col-sm-9 col-sm-offset-3">
+                <button type="submit" class="btn btn-outline-primary btn-block">SEARCH</button>
+            </div>
         </div>
 
        </form>
@@ -237,17 +310,41 @@ letter-spacing: 4px;
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="awards">
       <div class="w-100">
-        <h2 class="mb-5">Delete_student</h2>
-
-        {{-- //DOCTOR REPLY
-        {{$user->REPLY}}
+        <h2 class="abc">Communication</h2>
+          <a href="{{route ( 'post1' , [$user->email])}}">GO_TO_THE_POST_PAGE</a>
 
 
-        /// --}}
+
+
+          <section class="row new--post">
+            <div class=container>
+                <header><h3 class="abc">What is in your mind??</h3></header>
+
+                <form action= "{{route ( 'create' , [$user->email] )}}" method="GET">
+                    @csrf
+                    <div class="form-group">
+                    <textarea class="form-control" name="newpost" rows="5" placeholder="Feel Free to share"></textarea>
+                    <button type="submit" class="btn btn-outline-dark ">Create Post</button>
+                </div>
+              </form>
+            </div>
+         </section>
       </div>
     </section>
 
   </div>
+
+
+   <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="hospital">
+      <div class="w-100">
+        <h2 class="abc">Find Hospital</h2>
+          <a href="{{route ( 'map' , [$user->email])}}">Click_Here_to_find_Hospital</a>
+
+      </div>
+     </section>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src={{asset("resume/vendor/jquery/jquery.min.js")}}></script>
